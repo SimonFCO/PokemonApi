@@ -1,5 +1,4 @@
 ﻿using PokemonApi.Models;
-using PokemonApp.Models;
 namespace PokemonApi.Services
 {
     public interface IPokemonService

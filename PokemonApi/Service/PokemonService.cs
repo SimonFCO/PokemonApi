@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using PokemonApi.Models;
-using PokemonApp.Models;
 using System.Text.Json;
 
 namespace PokemonApi.Services

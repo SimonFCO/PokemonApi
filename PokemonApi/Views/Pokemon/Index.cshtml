@@ -1,4 +1,4 @@
-﻿@model PokemonApp.Models.PokemonListResult
+﻿@model PokemonApi.Models.PokemonListResult
 
 @{
     ViewData["Title"] = "Pokémon List";
@@ -10,30 +10,38 @@
         Total Pokémon available: <strong>@Model.TotalCount</strong>
     </p>
 
-    <!-- 1. Check if the list is empty (e.g. if API is down) -->
     @if (Model.Items == null || !Model.Items.Any())
     {
         <div class="alert alert-warning text-center">
-            No Pokémon found. Please check your internet connection.
+            No Pokémon found. Check your internet connection.
         </div>
     }
     else
     {
-        <!-- 2. Grid displaying Pokémon cards -->
         <div class="row row-cols-2 row-cols-md-4 g-3 mb-4">
             @foreach (var pokemon in Model.Items)
             {
                 <div class="col">
-                    <div class="card h-100 shadow-sm text-center">
-                        <div class="card-body">
-                            <h5 class="card-title text-capitalize">@pokemon.Name</h5>
+                    <div class="card h-100 shadow-sm text-center p-2">
+                        @if (!string.IsNullOrEmpty(pokemon.ImageUrl))
+                        {
+                            <img src="@pokemon.ImageUrl"
+                                 alt="@pokemon.Name"
+                                 class="card-img-top mx-auto"
+                                 style="width: 100px; height: 100px;"
+                                 loading="lazy" />
+                        }
+
+                        <div class="card-body p-2">
+                            <span class="text-muted small">#@pokemon.Id</span>
+                            <h5 class="card-title text-capitalize mb-0">@pokemon.Name</h5>
                         </div>
                     </div>
                 </div>
             }
         </div>
 
-        <!-- 3. Pagination Controls (Previous / Next buttons) -->
+        <!-- Pagination Controls -->
         <div class="d-flex justify-content-between align-items-center mt-3">
             @if (Model.HasPreviousPage)
             {
