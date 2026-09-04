@@ -1,3 +1,5 @@
+using PokemonApi.Services;
+
 namespace PokemonApi
 {
     public class Program
@@ -8,7 +10,7 @@ namespace PokemonApi
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddHttpClient<IPokemonService, PokemonService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

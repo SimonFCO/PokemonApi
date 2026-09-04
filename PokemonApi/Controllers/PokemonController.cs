@@ -14,7 +14,7 @@ namespace PokemonApi.Controllers
 
         public async Task<IActionResult> Index(int limit = 20, int offset = 0)
         {
-            var result = await _pokemonService.GetPokemonListsAsync(limit, offset);
+            var result = await _pokemonService.GetPokemonListAsync(limit, offset);
 
             return View(result);
         }

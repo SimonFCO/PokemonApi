@@ -1,0 +1,71 @@
+﻿@model PokemonApp.Models.PokemonListResult
+
+@{
+    ViewData["Title"] = "Pokémon List";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-2">Pokédex</h1>
+    <p class="text-center text-muted">
+        Total Pokémon available: <strong>@Model.TotalCount</strong>
+    </p>
+
+    <!-- 1. Check if the list is empty (e.g. if API is down) -->
+    @if (Model.Items == null || !Model.Items.Any())
+    {
+        <div class="alert alert-warning text-center">
+            No Pokémon found. Please check your internet connection.
+        </div>
+    }
+    else
+    {
+        <!-- 2. Grid displaying Pokémon cards -->
+        <div class="row row-cols-2 row-cols-md-4 g-3 mb-4">
+            @foreach (var pokemon in Model.Items)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-capitalize">@pokemon.Name</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- 3. Pagination Controls (Previous / Next buttons) -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            @if (Model.HasPreviousPage)
+            {
+                <a asp-action="Index"
+                   asp-route-offset="@(Model.Offset - Model.Limit)"
+                   asp-route-limit="@Model.Limit"
+                   class="btn btn-outline-primary">
+                    &larr; Previous
+                </a>
+            }
+            else
+            {
+                <button class="btn btn-outline-secondary" disabled>&larr; Previous</button>
+            }
+
+            <span class="text-muted">
+                Showing @(Model.Offset + 1) - @(Math.Min(Model.Offset + Model.Limit, Model.TotalCount)) of @Model.TotalCount
+            </span>
+
+            @if (Model.HasNextPage)
+            {
+                <a asp-action="Index"
+                   asp-route-offset="@(Model.Offset + Model.Limit)"
+                   asp-route-limit="@Model.Limit"
+                   class="btn btn-outline-primary">
+                    Next &rarr;
+                </a>
+            }
+            else
+            {
+                <button class="btn btn-outline-secondary" disabled>Next &rarr;</button>
+            }
+        </div>
+    }
+</div>
