@@ -28,7 +28,7 @@ namespace PokemonApi
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Pokemon}/{action=Index}/{id?}");
 
             app.Run();
         }
