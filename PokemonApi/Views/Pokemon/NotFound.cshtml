@@ -1,6 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Not Found";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-5 text-center">
+    <div class="alert alert-danger shadow-sm p-4 mx-auto" style="max-width: 500px;" role="alert">
+        <h3 class="alert-heading">Pokémon Not Found</h3>
+        <p class="mt-2">
+            @(ViewBag.ErrorMessage ?? "The requested Pokémon could not be found.")
+        </p>
+        <hr />
+        <a asp-action="Index" class="btn btn-primary mt-2">Return to Pokédex</a>
+    </div>
+</div>

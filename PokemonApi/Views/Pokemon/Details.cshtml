@@ -1,6 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model PokemonApi.Models.PokemonDetail
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = Model.Name.ToUpper();
+}
+
+<div class="container mt-4">
+    <a asp-action="Index" class="btn btn-secondary mb-3">&larr; Back to Pokédex</a>
+
+    <div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+        <div class="text-center">
+            @if (!string.IsNullOrEmpty(Model.Sprites.FrontDefault))
+            {
+                <img src="@Model.Sprites.FrontDefault" alt="@Model.Name" style="width: 150px; height: 150px;" />
+            }
+            else
+            {
+                <div class="p-3 text-muted fst-italic">No image available</div>
+            }
+
+            <h2 class="text-capitalize mb-1">
+                @Model.Name <span class="text-muted fs-5">#@Model.Id</span>
+            </h2>
+
+            <div class="my-2">
+                @foreach (var typeEntry in Model.Types)
+                {
+                    <span class="badge bg-success me-1 text-uppercase">
+                        @typeEntry.Type.Name
+                    </span>
+                }
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row text-center my-2">
+            <div class="col">
+                <span class="text-muted d-block small">Height</span>
+                <strong>@(Model.Height / 10.0) m</strong>
+            </div>
+            <div class="col">
+                <span class="text-muted d-block small">Weight</span>
+                <strong>@(Model.Weight / 10.0) kg</strong>
+            </div>
+            <div class="col">
+                <span class="text-muted d-block small">Base XP</span>
+                <strong>@Model.BaseExperience</strong>
+            </div>
+        </div>
+
+        <hr />
+
+        <h5 class="mb-3">Base Stats</h5>
+        <ul class="list-group list-group-flush">
+            @foreach (var statEntry in Model.Stats)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize px-0">
+                    @statEntry.Stat.Name
+                    <span class="badge bg-primary rounded-pill">@statEntry.BaseStat</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

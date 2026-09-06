@@ -32,16 +32,23 @@
                                  loading="lazy" />
                         }
 
-                        <div class="card-body p-2">
-                            <span class="text-muted small">#@pokemon.Id</span>
-                            <h5 class="card-title text-capitalize mb-0">@pokemon.Name</h5>
+                        <div class="card-body p-2 d-flex flex-column justify-content-between">
+                            <div>
+                                <span class="text-muted small">#@pokemon.Id</span>
+                                <h5 class="card-title text-capitalize mb-2">@pokemon.Name</h5>
+                            </div>
+
+                            <a asp-action="Details"
+                               asp-route-id="@pokemon.Name"
+                               class="btn btn-outline-primary btn-sm">
+                                View Details
+                            </a>
                         </div>
                     </div>
                 </div>
             }
         </div>
 
-        <!-- Pagination Controls -->
         <div class="d-flex justify-content-between align-items-center mt-3">
             @if (Model.HasPreviousPage)
             {
