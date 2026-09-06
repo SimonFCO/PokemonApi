@@ -37,6 +37,16 @@ namespace PokemonApi.Controllers
             return View(pokemon);
         }
 
-        
+        public IActionResult Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Details), new { id = query.Trim().ToLower() });
+        }
+
+
     }
 }
